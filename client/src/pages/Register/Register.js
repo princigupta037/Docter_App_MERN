@@ -1,17 +1,40 @@
-import React from "react";
+import React ,{ useState ,useEffect}from "react";
 import { Form, Button, Input } from "antd";
 import {Link} from 'react-router-dom'
+import axios from 'axios';
+import toast from 'react-hot-toast';
+
 
 
 const Register = () => {
+
   // const [user, setUser] =useState('');
   // const [email, setEmail] =useState('');
   // const [password, setPassword] =useState('');
 
-  const onFinish = (values) => {
-    // e.preventDefault();
-    console.log(values,values);
+  const onFinish = async (values) => {
+    try {
+        console.log('17')
+
+        const response = await axios.post('http://localhost:5000/api/user/register',values);
+        console.log('19')
+
+        if(response.data.success){
+            toast.success(response.data.message);        
+        }
+      else{
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+        console.log(error,'error')
+      toast.error("Something went wrong");
+    }
   };
+
+  useEffect(() => {
+
+
+  });
 
   return (
     <>
