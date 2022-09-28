@@ -5,6 +5,9 @@ const dbConfig = require('./config/dbConfig')
 
 app.use(express.json());
 
+const cors = require('cors');
+app.use(cors());
+
 const userRoute = require('./routes/userRoute')
 
 app.use('/api/user',userRoute);
