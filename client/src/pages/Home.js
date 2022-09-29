@@ -25,8 +25,6 @@ const Home = () => {
 
   return (
     <div>
-      <div> </div>
-      Home Page
       <Link to="/login"> Click here to login</Link>
     </div>
   );
