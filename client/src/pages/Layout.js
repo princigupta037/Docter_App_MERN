@@ -30,21 +30,35 @@ function Layout({ children }) {
       path: "/profile",
       icon: "ri-profile-fill",
     },
+  
+  ];
+
+  const adminMenu = [
     {
-      name: "Logout",
-      path: "/logout",
-      icon: "ri-logout-box-fill",
+      name: "Home",
+      path: "/",
+      icon: "ri-home-line",
+    },
+    {
+      name: "Users",
+      path: "/users",
+      icon: "ri-file-list-fill",
+    },
+    {
+      name: "Docters",
+      path: "/docters",
+      icon: "ri-hospital-fill",
     },
   ];
 
-  const renderedMenu = userMenu;
+  const renderedMenu = user?.isAdmin ? userMenu : adminMenu;
 
   return (
     <div className="main">
       <div className="d-flex layout">
         <div className={`${collapsed ? "collapsed-sidebar" : "sidebar"}`}>
           <div className="sidebar-header">
-            <h1> DA</h1>
+            <h1 className="white"> DA</h1>
             <div className="menu">
               {renderedMenu.map((menu) => {
                 const isActive = location.pathname === menu.path;
@@ -59,6 +73,16 @@ function Layout({ children }) {
                   </div>
                 );
               })}
+              <div
+                className={`d-flex menu-item`}
+                onClick={() => {
+                  localStorage.clear();
+                  Navigator("/login");
+                }}
+              >
+                <i className="ri-logout-circle-line"></i>
+              { !collapsed && ( <Link to="/login">Logout </Link>)}
+              </div>
             </div>
           </div>
         </div>
@@ -75,14 +99,15 @@ function Layout({ children }) {
                 onClick={() => setCollapsed(true)}
               ></i>
             )}
-             <div className="d-flex align-items-center px-2">
-            <i className="ri-notification-line header-action-icon px-3">
-              <Link className='anchor px-3' to='./profile'>{user?.name} </Link></i>
+            <div className="d-flex align-items-center px-2">
+              <i className="ri-notification-line header-action-icon px-3">
+                <Link className="anchor px-3" to="./profile">
+                  {user?.name}{" "}
+                </Link>
+              </i>
+            </div>
           </div>
 
-          </div>
-
-         
           <div className="body">{children}</div>
         </div>
       </div>

@@ -23,12 +23,12 @@ const Dashboard = (props) => {
         dispatch(setUser(response.data.data));
         console.log(response.data.data);
       } else {
-        localStorage.clear();
+        // localStorage.clear();/
         Navigate("/login");
       }
     } catch (error) {
       console.log(error);
-      localStorage.clear();
+      // localStorage.clear();
       Navigate("/login");
     }
   };
