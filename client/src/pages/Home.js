@@ -7,7 +7,9 @@ const Home = () => {
 
   const getData = async () =>{
     try {
-      const response = await axios.post("http://localhost:5000/api/user/get-user-info-by-id",{},{
+      const response = await axios.post("http://localhost:5000/api/user/get-user-info-by-id",{
+        
+      },{
         headers:{
           Authorization:"Bearer" + localStorage.getItem("token")
         }

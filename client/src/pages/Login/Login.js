@@ -3,6 +3,7 @@ import { Form, Button, Input } from "antd";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
+import Dashboard from "../Dashboard/Dashboard";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -36,7 +37,7 @@ const Login = () => {
 
   return (
     <>
-  {
+      {!messgae ? (
         <Form onFinish={onFinish}>
           <Form.Item label="Email" name="email">
             <Input placeholder="Email" />
@@ -50,7 +51,9 @@ const Login = () => {
 
           <Link to="/register"> Click here to register</Link>
         </Form>
-   }
+      ) : (
+        <Dashboard />
+      )}
     </>
   );
 };
