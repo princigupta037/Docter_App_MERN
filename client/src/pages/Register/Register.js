@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Form, Button, Input } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -16,7 +16,6 @@ const Register = () => {
         "http://localhost:5000/api/user/register",
         values
       );
-
       if (response.data.success) {
         setMessage(response.data.message);
         // toast.success(response.data.message);
@@ -24,7 +23,6 @@ const Register = () => {
         // navigate("/login");
       } else {
       setMessage(response.data.message);
-
         toast.error(response.data.message);
       }
     } catch (error) {
@@ -32,8 +30,6 @@ const Register = () => {
       toast.error("Something went wrong");
     }
   };
-
-  useEffect(() => {});
 
   return (
     <>
@@ -48,7 +44,6 @@ const Register = () => {
         <Form.Item label="Password" name="password">
           <Input type="password" placeholder="Password" />
         </Form.Item>
-
         <Button htmlType="submit">Register</Button>
         {messgae && <p>{messgae}</p>}
         <Link to="/login"> Click here to login</Link>

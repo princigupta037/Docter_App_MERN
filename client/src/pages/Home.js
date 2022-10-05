@@ -2,6 +2,7 @@ import React,{useEffect} from "react";
 // import Login from "./Login/Login";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { Layout } from "antd";
 
 const Home = () => {
 
@@ -27,6 +28,9 @@ const Home = () => {
 
   return (
     <div>
+      <Layout>
+        <h1>Home</h1>
+      </Layout>
       <Link to="/login"> Click here to login</Link>
     </div>
   );

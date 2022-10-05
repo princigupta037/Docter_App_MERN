@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/userModel");
+const Docter = require("../models/docterModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const authMiddleware = require("../middlewares/authMiddleware");
@@ -55,17 +56,15 @@ router.post("/login", async (req, res) => {
 
 router.post("/get-user-info-by-id", authMiddleware, async (req, res) => {
   try {
-    console.log('inside')
+    console.log("inside");
     const user = await User.findById(req.body.userId);
+    user.password = undefined;
     if (!user) {
       res.status(200).send({ message: "User not found", success: false });
     } else {
       res.status(200).send({
         success: true,
-        data: {
-          name: user.name,
-          email: user.email,
-        },
+        data: user,
       });
     }
   } catch (error) {
@@ -74,4 +73,27 @@ router.post("/get-user-info-by-id", authMiddleware, async (req, res) => {
   }
 });
 
+router.post("/apply-docter-account", async (req, res) => {
+  try {
+    console.log('insideee')
+    const newdocter = new Docter({ ...req.body, status: "pending" });
+    await newdocter.save();
+    const adminUser = await User.findOne({ isAdmin: true });
+    const unseenNotifications = adminUser.unseenNotifications;
+    unseenNotifications.push({
+      type: "new-docter-request",
+      message: `${newdocter.firstName} ${newdocter.lastName} has applied for docter account`,
+      data:{
+        docterID : newdocter._id,
+        name:newdocter.firstName + " " + newdocter.lastName,
+      },
+      onClickPath:'/admin/docter'
+    });
+    await User.findByIdAndUpdate(adminUser._id, { unseenNotifications });
+    res.status(200).send({ message: "Docter account applied successfully", success: true });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ message: "Error in applying for docter account" , success: false});
+  }
+});
 module.exports = router;

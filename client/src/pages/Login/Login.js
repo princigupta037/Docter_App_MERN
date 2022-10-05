@@ -23,7 +23,7 @@ const Login = () => {
       );
 
       if (response.data.success) {
-        <Navigate to="/dash" />;
+        <Navigate to="/dashboard" />;
         setMessage(response.data.message);
         localStorage.setItem("token", response.data.data);
       } else {

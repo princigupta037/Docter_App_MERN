@@ -14,3 +14,22 @@ code {
 .white{
   color: white;
 }
+
+.page-title{
+  font-size: 25px;
+  color: black;
+  font-weight: bold;
+}
+.primary-button{
+  background-color: #479269;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 14px 0px;
+  cursor: pointer;
+  height: fit-content;
+}

@@ -3,6 +3,7 @@ import "./layout.css";
 import { useSelector, useDispatch } from "react-redux";
 
 import { Link, useLocation } from "react-router-dom";
+import { Badge, Avatar } from "antd";
 
 function Layout({ children }) {
   const location = useLocation();
@@ -22,7 +23,7 @@ function Layout({ children }) {
     },
     {
       name: "Apply Docter",
-      path: "/applydocter",
+      path: "/apply-docter",
       icon: "ri-hospital-fill",
     },
     {
@@ -30,7 +31,6 @@ function Layout({ children }) {
       path: "/profile",
       icon: "ri-profile-fill",
     },
-  
   ];
 
   const adminMenu = [
@@ -48,6 +48,11 @@ function Layout({ children }) {
       name: "Docters",
       path: "/docters",
       icon: "ri-hospital-fill",
+    },
+    {
+      name: "Profile",
+      path: "/profile",
+      icon: "ri-profile-fill",
     },
   ];
 
@@ -81,7 +86,7 @@ function Layout({ children }) {
                 }}
               >
                 <i className="ri-logout-circle-line"></i>
-              { !collapsed && ( <Link to="/login">Logout </Link>)}
+                {!collapsed && <Link to="/login">Logout </Link>}
               </div>
             </div>
           </div>
@@ -100,11 +105,12 @@ function Layout({ children }) {
               ></i>
             )}
             <div className="d-flex align-items-center px-2">
-              <i className="ri-notification-line header-action-icon px-3">
-                <Link className="anchor px-3" to="./profile">
-                  {user?.name}{" "}
-                </Link>
-              </i>
+              <Badge className="badge" count={user?.unseenNotifications.length}>
+                <i className="ri-notification-line header-action-icon px-2"></i>
+              </Badge>
+              <Link className="anchor px-2" to="./profile">
+                {user?.name}{" "}
+              </Link>
             </div>
           </div>
 
