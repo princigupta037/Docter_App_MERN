@@ -83,11 +83,11 @@ const App = () => {
               // </PublicRoutes>
             }/>
               <Route
-            path="/docter/profile/:docterId"
+            path="/docter/profile/:userId"
             element={
               // <PublicRoutes>
                 <Profile />
-              // </PublicRoutes>
+              //  </PublicRoutes>
             }/>
         </Routes>
       </Router>

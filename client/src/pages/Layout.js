@@ -9,6 +9,7 @@ function Layout({ children }) {
   const navigate = useNavigate();
   const location = useLocation();
   const { user } = useSelector((state) => state.user);
+  console.log(user);
   const [collapsed, setCollapsed] = useState(false);
 
   const userMenu = [
@@ -70,7 +71,7 @@ function Layout({ children }) {
     },
     {
       name: "Profile",
-      path: `/docter/profile/${user._id}`,
+      path: `/docter/profile/${user?._id}`,
       icon: "ri-profile-fill",
     },
   ];
@@ -78,6 +79,7 @@ function Layout({ children }) {
   const notification = () => {
     navigate("./notifications");
   };
+
   const renderedMenu = user?.isAdmin
     ? adminMenu
     : user?.isDocter

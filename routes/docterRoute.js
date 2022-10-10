@@ -6,11 +6,33 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const authMiddleware = require("../middlewares/authMiddleware");
 
-router.post("/change-docter-status", async (req, res) => {
+router.post("/get-docter-data", async (req, res) => {
   try {
-    const docter = await Docter.findById(req.body.user._id);
+    console.log(req.body.userId,'req.body.userId');
+    const docter = await Docter.findOne({userId:req.body.userId});
+    console.log(docter,'docter');
     res.status(200).send({
-      message: "Docter status changed successfully",
+      message: "Docter profile fetched successfully",
+      success: true,
+      data: docter,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      message: "Error in applying for docter account",
+      success: false,
+      error,
+    });
+  }
+});
+
+router.post("/update-docter-data", async (req, res) => {
+  try {
+    console.log(req.body.userId,'req.body.userId');
+    const docter = await Docter.findOneAndUpdate({userId:req.body.userId}, {...req.body});
+    console.log(docter,'docter');
+    res.status(200).send({
+      message: "Docter profile updated successfully",
       success: true,
       data: docter,
     });
