@@ -75,7 +75,7 @@ router.post("/get-user-info-by-id", authMiddleware, async (req, res) => {
 
 router.post("/apply-docter-account", async (req, res) => {
   try {
-    console.log('insideee')
+    console.log("insideee");
     const newdocter = new Docter({ ...req.body, status: "pending" });
     await newdocter.save();
     const adminUser = await User.findOne({ isAdmin: true });
@@ -83,17 +83,71 @@ router.post("/apply-docter-account", async (req, res) => {
     unseenNotifications.push({
       type: "new-docter-request",
       message: `${newdocter.firstName} ${newdocter.lastName} has applied for docter account`,
-      data:{
-        docterID : newdocter._id,
-        name:newdocter.firstName + " " + newdocter.lastName,
+      data: {
+        docterID: newdocter._id,
+        name: newdocter.firstName + " " + newdocter.lastName,
       },
-      onClickPath:'/admin/docter'
+      onClickPath: "/admin/docter",
     });
     await User.findByIdAndUpdate(adminUser._id, { unseenNotifications });
-    res.status(200).send({ message: "Docter account applied successfully", success: true });
+    res
+      .status(200)
+      .send({ message: "Docter account applied successfully", success: true });
   } catch (error) {
     console.log(error);
-    res.status(500).send({ message: "Error in applying for docter account" , success: false});
+    res.status(500).send({
+      message: "Error in applying for docter account",
+      success: false,
+    });
   }
 });
+
+router.post("/mark-all-notifications-as-seen", async (req, res) => {
+  try {
+    const user = await User.findOne({ _id: req.body.userId });
+    const unseenNotifications = user.unseenNotifications;
+    const seenNotifications = user.seenNotifications;
+    seenNotifications.push(...unseenNotifications);
+    user.unseenNotifications = [];
+    user.seenNotifications = seenNotifications;
+    const updatedUser = await user.save();
+    updatedUser.password = undefined;
+    res.status(200).send({
+      message: "Notifications marked as seen",
+      success: true,
+      data: updatedUser,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      message: "Error in applying for docter account",
+      success: false,
+    });
+  }
+});
+
+router.post("/delete-all-notifications", async (req, res) => {
+  try {
+    const user = await User.findOne({ _id: req.body.userId });
+    user.seenNotifications = [];
+    user.unseenNotifications = [];
+    const updatedUser = await user.save();
+    updatedUser.password = undefined;
+    res.status(200).send({
+      message: "Notifications marked as seen",
+      success: true,
+      data: updatedUser,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      message: "Error in applying for docter account",
+      success: false,
+    });
+  }
+});
+
+
+
+
 module.exports = router;

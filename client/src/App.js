@@ -8,6 +8,10 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import ApplyDocter from "./pages/ApplyDocter";
 import PublicRoutes from "./components/PublicRoutes";
 import ProtectedRoutes from "./components/ProtectedRoutes";
+import Notifications from "./pages/Notifications";
+import DoctersList from "./pages/Admin/DoctersList";
+import UserList from "./pages/Admin/UserList";
+import Profile from "./pages/Docter/Profile";
 
 const App = () => {
   return (
@@ -55,6 +59,36 @@ const App = () => {
               // </PublicRoutes>
             }
           />
+            <Route
+            path="/login/notifications"
+            element={
+              // <PublicRoutes>
+                <Notifications />
+              // </PublicRoutes>
+            }
+            
+          />
+          <Route
+            path="/admin/doctersList"
+            element={
+              // <PublicRoutes>
+                <DoctersList />
+              // </PublicRoutes>
+            }/>
+             <Route
+            path="/admin/usersList"
+            element={
+              // <PublicRoutes>
+                <UserList />
+              // </PublicRoutes>
+            }/>
+              <Route
+            path="/docter/profile/:docterId"
+            element={
+              // <PublicRoutes>
+                <Profile />
+              // </PublicRoutes>
+            }/>
         </Routes>
       </Router>
     </>

@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import "./layout.css";
 import { useSelector, useDispatch } from "react-redux";
 
-import { Link, useLocation } from "react-router-dom";
-import { Badge, Avatar } from "antd";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Badge, Avatar, notification } from "antd";
 
 function Layout({ children }) {
+  const navigate = useNavigate();
   const location = useLocation();
   const { user } = useSelector((state) => state.user);
   const [collapsed, setCollapsed] = useState(false);
@@ -41,12 +42,12 @@ function Layout({ children }) {
     },
     {
       name: "Users",
-      path: "/users",
+      path: "/admin/usersList",
       icon: "ri-file-list-fill",
     },
     {
       name: "Docters",
-      path: "/docters",
+      path: "/admin/doctersList",
       icon: "ri-hospital-fill",
     },
     {
@@ -56,7 +57,32 @@ function Layout({ children }) {
     },
   ];
 
-  const renderedMenu = user?.isAdmin ? userMenu : adminMenu;
+  const docterMenu = [
+    {
+      name: "Home",
+      path: "/",
+      icon: "ri-home-line",
+    },
+    {
+      name: "Appointments",
+      path: "/appointments",
+      icon: "ri-file-list-fill",
+    },
+    {
+      name: "Profile",
+      path: `/docter/profile/${user._id}`,
+      icon: "ri-profile-fill",
+    },
+  ];
+
+  const notification = () => {
+    navigate("./notifications");
+  };
+  const renderedMenu = user?.isAdmin
+    ? adminMenu
+    : user?.isDocter
+    ? docterMenu
+    : userMenu;
 
   return (
     <div className="main">
@@ -105,7 +131,11 @@ function Layout({ children }) {
               ></i>
             )}
             <div className="d-flex align-items-center px-2">
-              <Badge className="badge" count={user?.unseenNotifications.length}>
+              <Badge
+                className="badge"
+                count={user?.unseenNotifications.length}
+                onClick={notification}
+              >
                 <i className="ri-notification-line header-action-icon px-2"></i>
               </Badge>
               <Link className="anchor px-2" to="./profile">
