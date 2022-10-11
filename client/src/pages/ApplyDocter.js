@@ -8,6 +8,7 @@ import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { showLoading, hideLoading } from "../redux/alertSlice";
 import DocterForm from "../components/DocterForm";
+import moment from "moment";
 
 const ApplyDocter = () => {
   const dispatch = useDispatch();
@@ -20,7 +21,12 @@ const ApplyDocter = () => {
       dispatch(showLoading());
       const response = await axios.post(
         "http://localhost:5000/api/user/apply-docter-account",
-        { ...values, userId: user._id },
+        { ...values, userId: user._id ,
+          // timings: [
+          //   moment(values.timings[0]).format("HH:mm"),
+          //   moment(values.timings[1]).format("HH:mm"),
+          // ],
+        },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

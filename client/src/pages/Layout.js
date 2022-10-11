@@ -86,12 +86,14 @@ function Layout({ children }) {
     ? docterMenu
     : userMenu;
 
+  const role = user?.isAdmin ? "admin" : user?.isDocter ? "docter" : "user";
+
   return (
     <div className="main">
       <div className="d-flex layout">
         <div className={`${collapsed ? "collapsed-sidebar" : "sidebar"}`}>
           <div className="sidebar-header">
-            <h1 className="white"> DA</h1>
+            <h1 className="white"> DA - {role}</h1>
             <div className="menu">
               {renderedMenu.map((menu) => {
                 const isActive = location.pathname === menu.path;

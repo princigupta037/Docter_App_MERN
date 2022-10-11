@@ -12,6 +12,7 @@ import Notifications from "./pages/Notifications";
 import DoctersList from "./pages/Admin/DoctersList";
 import UserList from "./pages/Admin/UserList";
 import Profile from "./pages/Docter/Profile";
+import BookAppointment from "./pages/Docter/BookAppointment";
 
 const App = () => {
   return (
@@ -23,6 +24,23 @@ const App = () => {
             element={
               // <ProtectedRoutes>
                 <Login />
+              // </ProtectedRoutes>
+            }
+          />
+           <Route
+            path="/"
+            element={
+              // <ProtectedRoutes>
+                <BookAppointment />
+              // </ProtectedRoutes>
+            }
+          />
+         
+          <Route
+            path="/user/home"
+            element={
+              // <ProtectedRoutes>
+                <Home />
               // </ProtectedRoutes>
             }
           />

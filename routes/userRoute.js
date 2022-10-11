@@ -148,6 +148,24 @@ router.post("/delete-all-notifications", async (req, res) => {
 });
 
 
-
+router.post("/get-all-approved-docters", async (req, res) => {
+  try {
+    console.log(req.body.userId,'req.body.userId');
+    const docter = await Docter.findOne({status:"approved"});
+    console.log(docter,'docter');
+    res.status(200).send({
+      message: "Docter profile fetched successfully",
+      success: true,
+      data: docter,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      message: "Error in applying for docter account",
+      success: false,
+      error,
+    });
+  }
+});
 
 module.exports = router;

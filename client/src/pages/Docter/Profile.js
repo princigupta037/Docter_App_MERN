@@ -5,6 +5,7 @@ import axios from "axios";
 import DocterForm from "../../components/DocterForm";
 import { useParams } from "react-router-dom";
 import { showLoading, hideLoading } from "../../redux/alertSlice";
+import moment from "moment";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -18,7 +19,14 @@ const Profile = () => {
       dispatch(showLoading());
       const response = await axios.post(
         "http://localhost:5000/api/docter/update-docter-data",
-        { ...values, userId: user?._id },
+        {
+          ...values,
+          userId: user?._id,
+        //   timings: [
+        //     moment(values.timings[0]).format("HH:mm"),
+        //     moment(values.timings[1]).format("HH:mm"),
+        //   ],
+        },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

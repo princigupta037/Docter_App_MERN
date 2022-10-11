@@ -1,17 +1,19 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Layout from "../Layout";
 import { setUser } from "../../redux/userSlice";
 import { Navigate } from "react-router-dom";
+import { Col, Row } from "antd";
+import Docter from "../../components/Docter";
 
 const Dashboard = (props) => {
-  const { user } = useSelector((state) => state.user);
-  const dispatch = useDispatch();
+  const [docter, setDocter] = useState([]);
+  
   const getUser = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/user/get-user-info-by-id",
+        "http://localhost:5000/api/user/get-all-approved-docters",
         { token: localStorage.getItem("token") },
         {
           headers: {
@@ -20,27 +22,28 @@ const Dashboard = (props) => {
         }
       );
       if (response.data.success) {
-        dispatch(setUser(response.data.data));
-        console.log(response.data.data);
-      } else {
-        // localStorage.clear();/
-        Navigate("/login");
+        setDocter([response.data.data]);
       }
     } catch (error) {
       console.log(error);
       // localStorage.clear();
-      Navigate("/login");
+      // Navigate("/login");
     }
   };
+
   useEffect(() => {
-    if (!user) {
-      getUser();
-    }
-  }, [user]);
+    getUser();
+  }, []);
 
   return (
     <Layout>
-      <h1> Dashboard</h1>
+      <Row gutter={20}>
+        {docter && docter.map((docter) => (
+          <Col   span={8} xs={24} sm={24} lg={8}>
+            <Docter docter={docter} />
+          </Col>
+        ))}
+      </Row>
     </Layout>
   );
 };
