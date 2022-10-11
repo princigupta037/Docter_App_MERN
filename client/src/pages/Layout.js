@@ -66,10 +66,10 @@ function Layout({ children }) {
     },
     {
       name: "Appointments",
-      path: "/appointments",
+      path: "/docter/appointments",
       icon: "ri-file-list-fill",
     },
-    {
+    { 
       name: "Profile",
       path: `/docter/profile/${user?._id}`,
       icon: "ri-profile-fill",

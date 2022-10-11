@@ -6,107 +6,35 @@ import Register from "./pages/Register/Register";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import ApplyDocter from "./pages/ApplyDocter";
-import PublicRoutes from "./components/PublicRoutes";
-import ProtectedRoutes from "./components/ProtectedRoutes";
 import Notifications from "./pages/Notifications";
 import DoctersList from "./pages/Admin/DoctersList";
 import UserList from "./pages/Admin/UserList";
 import Profile from "./pages/Docter/Profile";
 import BookAppointment from "./pages/Docter/BookAppointment";
+import Appointments from "./pages/Appointments";
+import DocterAppointments from "./pages/Docter/DocterAppointment";
 
 const App = () => {
   return (
     <>
       <Router>
         <Routes>
+          <Route path="/" element={<Login />} />
           <Route
-            path="/"
-            element={
-              // <ProtectedRoutes>
-                <Login />
-              // </ProtectedRoutes>
-            }
+            path="/book-appointment/:docterId"
+            element={<BookAppointment />}
           />
-           <Route
-            path="/"
-            element={
-              // <ProtectedRoutes>
-                <BookAppointment />
-              // </ProtectedRoutes>
-            }
-          />
-         
-          <Route
-            path="/user/home"
-            element={
-              // <ProtectedRoutes>
-                <Home />
-              // </ProtectedRoutes>
-            }
-          />
-
-          <Route
-            path="/dashboard"
-            element={
-              // <PublicRoutes>
-                <Dashboard />
-              // </PublicRoutes>
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              // <PublicRoutes>
-                <Login />
-              // </PublicRoutes>
-            }
-          />
-          <Route
-            path="/register"
-            element={
-              // <PublicRoutes>
-                <Register />
-              // </PublicRoutes>
-            }
-          />
-          <Route
-            path="/apply-docter"
-            element={
-              // <PublicRoutes>
-                <ApplyDocter />
-              // </PublicRoutes>
-            }
-          />
-            <Route
-            path="/login/notifications"
-            element={
-              // <PublicRoutes>
-                <Notifications />
-              // </PublicRoutes>
-            }
-            
-          />
-          <Route
-            path="/admin/doctersList"
-            element={
-              // <PublicRoutes>
-                <DoctersList />
-              // </PublicRoutes>
-            }/>
-             <Route
-            path="/admin/usersList"
-            element={
-              // <PublicRoutes>
-                <UserList />
-              // </PublicRoutes>
-            }/>
-              <Route
-            path="/docter/profile/:userId"
-            element={
-              // <PublicRoutes>
-                <Profile />
-              //  </PublicRoutes>
-            }/>
+          <Route path="/user/home" element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/apply-docter" element={<ApplyDocter />} />
+          <Route path="/login/notifications" element={<Notifications />} />
+          <Route path="/admin/doctersList" element={<DoctersList />} />
+          <Route path="/admin/usersList" element={<UserList />} />
+          <Route path="/docter/profile/:userId" element={<Profile />} />
+          <Route path="/appointments" element={<Appointments />} />
+          <Route path="/docter/appointments" element={<DocterAppointments />} />
         </Routes>
       </Router>
     </>
