@@ -13,12 +13,14 @@ import Profile from "./pages/Docter/Profile";
 import BookAppointment from "./pages/Docter/BookAppointment";
 import Appointments from "./pages/Appointments";
 import DocterAppointments from "./pages/Docter/DocterAppointment";
+import My404Component from "./pages/My404Component";
 
 const App = () => {
   return (
     <>
       <Router>
         <Routes>
+          <Route path="*" exact={true} element={<My404Component />} />
           <Route path="/" element={<Login />} />
           <Route
             path="/book-appointment/:docterId"
